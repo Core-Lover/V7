@@ -1,0 +1,237 @@
+/* Upgrade Modal Overlay */
+.upgrade-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Container */
+.upgrade-modal-container {
+  background: #1E242E;
+  border: 1.5px solid;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Animation Container */
+.modal-animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  height: 200px;
+}
+
+/* Fee Section */
+.modal-fee-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 1.8rem;
+  border-radius: 12px;
+}
+
+.fee-label {
+  font-size: 0.85rem;
+  color: #8FA4B8;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+.fee-display-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.eth-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(255, 122, 26, 0.4));
+  flex-shrink: 0;
+}
+
+.fee-amount {
+  font-size: 1.5rem;
+  color: var(--theme-color);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-confirm-btn,
+.modal-cancel-btn {
+  flex: 1;
+  padding: 0.875rem;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-confirm-btn {
+  color: #8FA4B8;
+  font-weight: 600;
+  border: 1px solid rgba(143, 164, 184, 0.4);
+  background: rgba(143, 164, 184, 0.12);
+  transition: all 0.3s ease;
+}
+
+.modal-confirm-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(143, 164, 184, 0.2);
+  border-color: rgba(143, 164, 184, 0.6);
+  color: #F4F7FA;
+}
+
+.modal-cancel-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: #8FA4B8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #F4F7FA;
+}
+
+/* Button Press Effect */
+.modal-confirm-btn:active,
+.modal-cancel-btn:active {
+  transform: scale(0.98);
+}
+
+.modal-upgrade-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.upgrade-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.upgrade-label {
+  font-size: 0.7rem;
+  color: #8FA4B8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.upgrade-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #F4F6F8;
+}
+
+.balance-info {
+  font-size: 0.8rem;
+  color: #9CA3AF;
+  margin-top: 4px;
+}
+
+.modal-error {
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  color: #EF4444;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-warning {
+  padding: 0.75rem 1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 8px;
+  color: #F59E0B;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-confirm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modal-cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+  .upgrade-modal-container {
+    width: 95%;
+    padding: 2rem 1.5rem;
+  }
+
+  .modal-animation-container {
+    height: 180px;
+  }
+
+  .fee-amount {
+    font-size: 1.75rem;
+  }
+}
