@@ -31,10 +31,10 @@ const MiningOverviewGrid = memo(({
   const animationFrameRef = useRef<number>();
 
   const cubes = useMemo<Cube[]>(() => {
-    return Array.from({ length: 12 }, (_, i) => ({
+    return Array.from({ length: 9 }, (_, i) => ({
       id: i,
-      x: (i % 4) * 30 - 45,
-      y: Math.floor(i / 4) * 30 - 30,
+      x: (i % 3) * 40 - 40,
+      y: Math.floor(i / 3) * 40 - 40,
       z: 0,
       rotationX: Math.random() * 360,
       rotationY: Math.random() * 360,

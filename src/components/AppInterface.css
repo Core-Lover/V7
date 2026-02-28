@@ -1777,17 +1777,16 @@ body::before {
 
 /* ========== UNIFIED MINING DASHBOARD GRID ========== */
 .unified-mining-dashboard {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 0;
   width: 100%;
   margin: 0 auto;
-  background: linear-gradient(135deg, rgba(20, 24, 32, 0.7), rgba(15, 18, 26, 0.8));
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(174, 180, 188, 0.12);
-  border-radius: 16px;
+  background: #1E242E;
+  border: 1px solid rgba(120, 132, 156, 0.18);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
 .unified-mining-dashboard .dashboard-balance-row {
@@ -1795,14 +1794,14 @@ body::before {
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  background: rgba(255, 165, 0, 0.06);
-  border-bottom: 1px solid rgba(174, 180, 188, 0.08);
+  background: rgba(255, 122, 26, 0.06);
+  border-bottom: 1px solid rgba(120, 132, 156, 0.12);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .unified-mining-dashboard .dashboard-balance-row:hover {
-  background: rgba(255, 165, 0, 0.1);
+  background: rgba(255, 122, 26, 0.1);
 }
 
 .unified-mining-dashboard .dashboard-main-content {
@@ -1812,15 +1811,15 @@ body::before {
 }
 
 .unified-mining-dashboard .dashboard-mining-section {
-  padding: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgba(174, 180, 188, 0.08);
+  border-right: 1px solid rgba(120, 132, 156, 0.12);
   cursor: pointer;
   transition: all 0.2s ease;
-  min-height: 180px;
+  min-height: 250px;
 }
 
 .unified-mining-dashboard .dashboard-mining-section:hover {
@@ -1828,33 +1827,42 @@ body::before {
 }
 
 .unified-mining-dashboard .dashboard-reward-section {
-  padding: 16px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 180px;
+  min-height: 250px;
 }
 
 .unified-mining-dashboard .dashboard-progress-row {
   padding: 16px 20px;
-  border-top: 1px solid rgba(174, 180, 188, 0.08);
-  background: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(120, 132, 156, 0.12);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .unified-mining-dashboard .dashboard-main-content {
     grid-template-columns: 1fr;
   }
   
   .unified-mining-dashboard .dashboard-mining-section {
     border-right: none;
-    border-bottom: 1px solid rgba(174, 180, 188, 0.08);
-    min-height: 160px;
+    border-bottom: 1px solid rgba(120, 132, 156, 0.12);
+    min-height: 200px;
   }
   
   .unified-mining-dashboard .dashboard-reward-section {
-    min-height: 120px;
+    min-height: 180px;
+  }
+
+  .premium-dashboard {
+    padding: 16px;
+    margin: 8px !important;
+  }
+
+  .dashboard-title {
+    font-size: 1.25rem;
   }
 }
 
