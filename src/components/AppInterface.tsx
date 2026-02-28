@@ -7,7 +7,6 @@ import { useAuth } from '../contexts/AuthContext';
 import AnimatedNumberDisplay from './AnimatedNumberDisplay';
 import './AppInterface.css';
 import './Mining3D.css';
-import MiningCubeGrid from './MiningCubeGrid';
 
 
 // Premium navigation button component
@@ -469,238 +468,54 @@ const AppInterface = memo(() => {
             </div>
           </div>
 
-          {/* Row 2: Mining Visualization + Reward Rate */}
-          <div className="dashboard-main-content">
-            {/* Left: Mining Animation */}
-            <div 
-              className="dashboard-mining-section"
-              onClick={() => navigate('/upgrade')}>
-            {/* 3D Mining Visualization */}
-            <div className={`mining-3d-container mining-reduced ${upgradeLevel === 1 ? 'theme-upgraded' : upgradeLevel === 2 ? 'theme-premium' : upgradeLevel === 3 ? 'theme-ultimate' : ''}`}>
-              <div className={`mining-scene ${miningActive ? 'mining-active' : ''}`}>
-            
-            
-            {/* 24-Hour Time Ring */}
-            <div className={`time-ring-24h ${miningActive ? 'mining-active' : ''}`}>
-              <svg className="time-ring-svg" viewBox="0 0 400 400">
-                <defs>
-                  <linearGradient id="timeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor={themeColors.gradientStart} stopOpacity="1" />
-                    <stop offset="50%" stopColor={themeColors.gradientMid} stopOpacity="0.9" />
-                    <stop offset="100%" stopColor={themeColors.gradientEnd} stopOpacity="1" />
-                  </linearGradient>
-                  <filter id="professionalGlow">
-                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                </defs>
-                
-                {/* Subtle Glow */}
-                <circle cx="200" cy="200" r="180" fill="none" stroke={`rgba(${themeColors.rgba}, 0.2)`} strokeWidth="18" opacity="0.9" />
-                
-                {/* Main Ring - Continuous Animated Progress Fill */}
-                <circle 
-                  className="time-progress-background" 
-                  cx="200" 
-                  cy="200" 
-                  r="180" 
-                  fill="none" 
-                  stroke={`rgba(${themeColors.rgba}, 0.25)`} 
-                  strokeWidth="14"
-                />
-                <circle 
-                  className="time-progress-fill" 
-                  cx="200" 
-                  cy="200" 
-                  r="180" 
-                  fill="none" 
-                  stroke="url(#timeGradient)" 
-                  strokeWidth="14"
-                  filter="url(#professionalGlow)"
-                  strokeDasharray={`${2 * Math.PI * 180}`}
-                  strokeDashoffset={`${2 * Math.PI * 180 * (1 - miningProgress / 100)}`}
-                  transform="rotate(-90 200 200)"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-            
-            {/* Rotating Rings System - TEST MODE ENABLED for fast animation */}
-            <div className={`ring-system-3d test-mode ${miningActive ? 'active-mining' : ''}`}>
-              <div className="ring ring-orbit-1"></div>
-              <div className="ring ring-orbit-2"></div>
-              <div className="ring ring-orbit-3"></div>
-              <div className="ring ring-orbit-4"></div>
-              <div className="ring ring-orbit-5"></div>
-              
-              {/* Official EIX Logo - Always rendered to prevent layout shift */}
-              <div className={`aiqx-official-logo mining-logo-appear ${miningActive ? 'mining-active' : ''}`} style={{
-                opacity: miningActive ? 1 : 0,
-                visibility: miningActive ? 'visible' : 'hidden',
-                transition: 'opacity 0.3s ease'
+          {/* New Professional Mining Interface */}
+          <div className="mining-status-display" style={{
+            padding: '30px',
+            background: 'rgba(0,0,0,0.2)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '20px',
+            minHeight: '200px'
+          }}>
+            <div className="status-header-professional" style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              color: miningActive ? themeColors.primary : '#9CA3AF'
+            }}>
+              <div className={`status-dot-large ${miningActive ? 'active' : ''}`} style={{
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                background: miningActive ? themeColors.primary : '#4B5563',
+                boxShadow: miningActive ? `0 0 15px ${themeColors.primary}` : 'none'
+              }} />
+              <span style={{ 
+                fontSize: '16px', 
+                fontWeight: '700', 
+                letterSpacing: '2px',
+                textTransform: 'uppercase'
               }}>
-                <svg className="aiqx-logo-svg" viewBox="0 0 160 160">
-                  {/* Coin outer ring */}
-                  <defs>
-                    <radialGradient id="goldGradient" cx="50%" cy="50%">
-                      <stop offset="0%" stopColor={themeColors.primary} />
-                      <stop offset="70%" stopColor={themeColors.secondary} />
-                      <stop offset="100%" stopColor={themeColors.tertiary} />
-                    </radialGradient>
-                    <radialGradient id="innerGradient" cx="50%" cy="40%">
-                      <stop offset="0%" stopColor="#1a1a1a" />
-                      <stop offset="100%" stopColor="#000000" />
-                    </radialGradient>
-                  </defs>
-                  
-                  {/* Outer ring */}
-                  <circle cx="80" cy="80" r="78" fill="url(#goldGradient)" />
-                  <circle cx="80" cy="80" r="72" fill={themeColors.tertiary} />
-                  
-                  {/* Inner black circle with gradient */}
-                  <circle cx="80" cy="80" r="68" fill="url(#innerGradient)" />
-                  
-                  {/* Exact Circuit Board Pattern from EIX Logo */}
-                  <g className="circuit-pattern-exact">
-                    
-                    {/* Top Circuit Lines */}
-                    <g className="circuit-top">
-                      <path className="circuit-line circuit-1" d="M80,20 L80,35" stroke={themeColors.tertiary} strokeWidth="1.2" fill="none" />
-                      <path className="circuit-line circuit-2" d="M80,35 L75,40 L75,50" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-3" d="M80,35 L85,40 L85,50" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-4" d="M65,25 L70,30 L70,45" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <path className="circuit-line circuit-5" d="M95,25 L90,30 L90,45" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <circle cx="80" cy="20" r="1.5" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="65" cy="25" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="95" cy="25" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="80" cy="35" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                    </g>
-                    
-                    {/* Right Circuit Lines */}
-                    <g className="circuit-right">
-                      <path className="circuit-line circuit-6" d="M140,80 L125,80" stroke={themeColors.tertiary} strokeWidth="1.2" fill="none" />
-                      <path className="circuit-line circuit-7" d="M125,80 L120,75 L110,75" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-8" d="M125,80 L120,85 L110,85" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-9" d="M135,65 L130,70 L115,70" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <path className="circuit-line circuit-10" d="M135,95 L130,90 L115,90" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <circle cx="140" cy="80" r="1.5" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="135" cy="65" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="135" cy="95" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="125" cy="80" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                    </g>
-                    
-                    {/* Bottom Circuit Lines */}
-                    <g className="circuit-bottom">
-                      <path className="circuit-line circuit-11" d="M80,140 L80,125" stroke={themeColors.tertiary} strokeWidth="1.2" fill="none" />
-                      <path className="circuit-line circuit-12" d="M80,125 L75,120 L75,110" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-13" d="M80,125 L85,120 L85,110" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-14" d="M65,135 L70,130 L70,115" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <path className="circuit-line circuit-15" d="M95,135 L90,130 L90,115" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <circle cx="80" cy="140" r="1.5" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="65" cy="135" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="95" cy="135" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="80" cy="125" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                    </g>
-                    
-                    {/* Left Circuit Lines */}
-                    <g className="circuit-left">
-                      <path className="circuit-line circuit-16" d="M20,80 L35,80" stroke={themeColors.tertiary} strokeWidth="1.2" fill="none" />
-                      <path className="circuit-line circuit-17" d="M35,80 L40,75 L50,75" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-18" d="M35,80 L40,85 L50,85" stroke={themeColors.tertiary} strokeWidth="1" fill="none" />
-                      <path className="circuit-line circuit-19" d="M25,65 L30,70 L45,70" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <path className="circuit-line circuit-20" d="M25,95 L30,90 L45,90" stroke={themeColors.tertiary} strokeWidth="0.8" fill="none" />
-                      <circle cx="20" cy="80" r="1.5" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="25" cy="65" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="25" cy="95" r="1" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="35" cy="80" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                    </g>
-                    
-                    {/* Corner Circuit Connections */}
-                    <g className="circuit-corners">
-                      {/* Top-Right */}
-                      <path className="circuit-line circuit-21" d="M110,50 L105,45 L100,45" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <path className="circuit-line circuit-22" d="M115,40 L110,45 L110,50" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <circle cx="115" cy="40" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="105" cy="45" r="0.6" fill={themeColors.tertiary} className="circuit-node" />
-                      
-                      {/* Top-Left */}
-                      <path className="circuit-line circuit-23" d="M50,50 L55,45 L60,45" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <path className="circuit-line circuit-24" d="M45,40 L50,45 L50,50" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <circle cx="45" cy="40" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="55" cy="45" r="0.6" fill={themeColors.tertiary} className="circuit-node" />
-                      
-                      {/* Bottom-Right */}
-                      <path className="circuit-line circuit-25" d="M110,110 L105,115 L100,115" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <path className="circuit-line circuit-26" d="M115,120 L110,115 L110,110" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <circle cx="115" cy="120" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="105" cy="115" r="0.6" fill={themeColors.tertiary} className="circuit-node" />
-                      
-                      {/* Bottom-Left */}
-                      <path className="circuit-line circuit-27" d="M50,110 L55,115 L60,115" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <path className="circuit-line circuit-28" d="M45,120 L50,115 L50,110" stroke={themeColors.tertiary} strokeWidth="0.7" fill="none" />
-                      <circle cx="45" cy="120" r="0.8" fill={themeColors.tertiary} className="circuit-node" />
-                      <circle cx="55" cy="115" r="0.6" fill={themeColors.tertiary} className="circuit-node" />
-                    </g>
-                    
-                    {/* Inner Connection Points */}
-                    <g className="inner-connections">
-                      <circle cx="75" cy="50" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="85" cy="50" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="110" cy="75" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="110" cy="85" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="85" cy="110" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="75" cy="110" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="50" cy="85" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                      <circle cx="50" cy="75" r="0.5" fill={themeColors.tertiary} opacity="0.6" />
-                    </g>
-                  </g>
-                  
-                  {/* Central Hash Chip Icon - Mathematically Centered */}
-                  <foreignObject x="66" y="66" width="28" height="28">
-                    <div style={{ 
-                      width: '28px', 
-                      height: '28px', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      position: 'relative'
-                    }}>
-                      <Cpu 
-                        size={26} 
-                        color={themeColors.primary}
-                        strokeWidth={1.5}
-                        style={{ 
-                          filter: 'drop-shadow(0 0 6px rgba(255, 215, 0, 0.8))',
-                          animation: miningActive ? 'pulse 2s ease-in-out infinite' : 'none',
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)'
-                        }}
-                      />
-                    </div>
-                  </foreignObject>
-                </svg>
+                {miningActive ? 'System Active' : 'System Standby'}
+              </span>
+            </div>
+
+            <div className="mining-rate-professional" style={{
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '1px' }}>Current Hashpower</div>
+              <div style={{ 
+                fontSize: '32px', 
+                fontWeight: '800', 
+                color: '#F4F6F8',
+                fontFamily: 'monospace'
+              }}>
+                {miningActive ? (miningRate * 0.95 + Math.random() * 0.1 * miningRate).toFixed(2) : '0.00'} <span style={{ fontSize: '16px', color: themeColors.primary }}>GH/s</span>
               </div>
-              
             </div>
           </div>
-          </div>
-          </div>
-            {/* End Mining Section */}
-          
-            {/* Right: Reward Rate Section */}
-            <div className="dashboard-reward-section">
-              <MiningCubeGrid 
-                miningRate={miningRate}
-                themeColors={themeColors}
-              />
-            </div>
-          </div>
-          {/* End dashboard-main-content */}
 
           {/* Row 3: Mining Progress - Inside Unified Grid */}
           <div className="dashboard-progress-row" style={{
